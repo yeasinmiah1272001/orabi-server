@@ -16,7 +16,6 @@ const addProduct = async (req, res) => {
       description,
       tags,
     } = await req.body;
-    // console.log("body", req.body);
 
     const image1 = req.files.image1 && req.files.image1[0];
     const image2 = req.files.image2 && req.files.image2[0];
@@ -43,7 +42,6 @@ const addProduct = async (req, res) => {
         return result.secure_url;
       })
     );
-    // console.log("img", imageUrls);
 
     let parsedTags;
     try {
@@ -51,7 +49,6 @@ const addProduct = async (req, res) => {
     } catch (error) {
       parsedTags = tags ? tags.split(",").map((tag) => tag.trim()) : [];
     }
-    // console.log("img", parsedTags);
 
     const productData = {
       _type: _type ? _type : "",
@@ -67,7 +64,7 @@ const addProduct = async (req, res) => {
       tags: tags ? parsedTags : [],
       images: imageUrls,
     };
-    // console.log("product", productData);
+
     const product = new productModels(productData);
     product.save();
     return res.send({
